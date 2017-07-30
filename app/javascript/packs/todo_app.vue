@@ -26,6 +26,11 @@ export default {
   methods: {
     clicked: function() {
       console.log("ボタンクリック!!")
+      if (this.todo_input != '') {
+        this.postTodo()
+      }else{
+        alert("何も表示されないよ!!")
+      }
     },
     fetchTodos: function(){
       axios.get('/api/v1/todos')
@@ -35,6 +40,20 @@ export default {
         .catch(error => {
           throw error
         })
+    },
+    postTodo: function () {
+      var todo = {
+        title: this.todo_input,
+        completed: false
+      }
+      axios.post('/api/v1/todos', todo)
+        .then(res => {
+          this.todo_input = ''
+          this.fetchTodos()
+          })
+          .catch(error => {
+          throw error
+          })
     },
   },
   components: { todo }
