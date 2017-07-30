@@ -11,20 +11,30 @@
 
 <script>
 import todo from './todo.vue'
+import axios from 'axios'
 export default {
+  created () {
+    this.fetchTodos()
+  },
   data: function () {
     return {
       message: 'Todoアプリ',
       todo_input: "",
-      todos: [
-        { title: 'TODOアイテム1' },
-        { title: 'TODOアイテム2' },
-      ],
+      todos: [],
     }
   },
   methods: {
     clicked: function() {
       console.log("ボタンクリック!!")
+    },
+    fetchTodos: function(){
+      axios.get('/api/v1/todos')
+        .then(res => {
+          this.todos = res.data
+        })
+        .catch(error => {
+          throw error
+        })
     },
   },
   components: { todo }
