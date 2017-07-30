@@ -46,10 +46,15 @@ module.exports = {
 
   resolve: {
     extensions: settings.extensions,
+    // aliasを追加
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
     modules: [
       resolve(settings.source_path),
       'node_modules'
     ]
+
   },
 
   resolveLoader: {
